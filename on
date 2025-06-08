@@ -1,0 +1,42 @@
+[33mcommit 35ab99e85fc8d650b22d25d85dc65a96e283042d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 21:07:35 2025 +0200
+
+    Obrisane nepotrebne datoteke i čišćenje projekta
+
+[33mcommit e50ee659188e1c616021d06b0c0dad1c0d8ddb98[m
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 20:46:26 2025 +0200
+
+    dodavanje u frontend
+
+[33mcommit 00785de40da4ff7f6a2b9daf7aeb1c33c329fcdb[m
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 20:26:28 2025 +0200
+
+    Dodaj SpeedInsights komponentu za Vercel metrike
+
+[33mcommit 7e4ca62277d653a290754a50c0d5ab276fff137d[m
+Merge: 79b746d 2bc1702
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 20:13:55 2025 +0200
+
+    Merge branch 'main' of https://github.com/filip0906/kalkulator-app
+
+[33mcommit 79b746df1567e4b0e13b06406849f47b1f705d06[m
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 20:12:46 2025 +0200
+
+    Dodaj cijeli kalkulator projekt
+
+[33mcommit 2bc1702073fe56362acb098456998344b76ab708[m
+Author: Filip Marić <40694256+filip0906@users.noreply.github.com>
+Date:   Sun Jun 8 20:00:21 2025 +0200
+
+    Initial commit
+
+[33mcommit c5852e45ad4ee3267f9d38112511a47369446224[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Filip Marić <filip0906@gmail.com>
+Date:   Sun Jun 8 19:58:37 2025 +0200
+
+    Prva verzija kalkulator aplikacije

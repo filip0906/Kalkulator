@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@vercel/speed-insights": "^1.2.0",
-    "react-circular-progressbar": "^2.2.0",
-    "react-transition-group": "^4.4.5"
-  }
-}

@@ -6,6 +6,7 @@ import LoanCalculator from './components/LoanCalculator';
 import FuelCalculator from './components/FuelCalculator';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 
 const getSystemDark = () =>
   window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -124,6 +125,7 @@ function App() {
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2508471855002470"
      crossorigin="anonymous"></script>
      <SpeedInsights />
+     <Analytics />
     </div>
   );
 }

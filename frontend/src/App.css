@@ -1,0 +1,226 @@
+.App {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Navbar stil */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px 12px 24px;
+  background: #1976d2;
+  border-radius: 16px 16px 0 0;
+  color: #fff;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-btn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.navbar-btn:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+/* Tabovi kao kartice */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 24px 0;
+  gap: 8px;
+}
+
+.tab-btn {
+  background: #e0e0e0;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  color: #222;
+  position: relative;
+  top: 6px;
+}
+
+.tab-btn.active {
+  background: #fff;
+  color: #1976d2;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.10);
+  z-index: 2;
+  top: 0;
+}
+
+.tab-btn.dark {
+  background: #333b47;
+  color: #f1f1f1;
+}
+.tab-btn.dark.active {
+  background: #23272f;
+  color: #90caf9;
+}
+
+@media (max-width: 600px) {
+  .App {
+    max-width: 98vw;
+    padding: 8px;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 8px 8px 8px;
+    border-radius: 0;
+  }
+  .navbar-title {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+  .tabs {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tab-btn {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+}
+
+/* Dark mode */
+body.dark,
+.App.dark {
+  background: #23272f !important;
+  color: #f1f1f1 !important;
+}
+
+.App.dark {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.tab-btn.dark {
+  background: #333b47;
+  color: #f1f1f1;
+}
+
+.tab-btn.dark.active {
+  background: #1565c0;
+  color: #fff;
+}
+
+input, button {
+  outline: none;
+}
+
+.App input[type="number"] {
+  width: 90%;
+  margin: 6px 0;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.App.dark input[type="number"] {
+  background: #23272f;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.calc-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+  transition: background 0.2s, transform 0.2s;
+}
+.calc-btn:hover, .calc-btn:focus {
+  background: #1565c0;
+  transform: translateY(-2px) scale(1.03);
+  outline: none;
+}

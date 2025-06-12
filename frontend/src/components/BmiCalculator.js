@@ -88,6 +88,14 @@ function BmiCalculator({ lang }) {
     return '#e53935';                 // crvena
   };
 
+  // Funkcija za izračun idealnog raspona težine
+  const getIdealWeightRange = (height) => {
+    if (!height || isNaN(height) || height <= 0) return null;
+    const min = (18.5 * (height/100) * (height/100)).toFixed(1);
+    const max = (24.9 * (height/100) * (height/100)).toFixed(1);
+    return { min, max };
+  };
+
   return (
     <div>
       <h2>{t.title}</h2>
@@ -126,6 +134,13 @@ function BmiCalculator({ lang }) {
             </div>
           </div>
           <p>{t.result}: {bmi}</p>
+          {height && getIdealWeightRange(height) && (
+            <p style={{fontSize:14, color:'#1976d2'}}>
+              {lang === 'hr'
+                ? `Idealna težina za vašu visinu: ${getIdealWeightRange(height).min} – ${getIdealWeightRange(height).max} kg`
+                : `Ideal weight for your height: ${getIdealWeightRange(height).min} – ${getIdealWeightRange(height).max} kg`}
+            </p>
+          )}
           <button onClick={handleCopy} aria-label={t.copy}>{t.copy}</button>
           <button onClick={() => window.print()} style={{marginLeft: 8}} aria-label={lang === 'hr' ? 'Ispiši' : 'Print'}>
             {lang === 'hr' ? 'Ispiši' : 'Print'}
@@ -133,6 +148,46 @@ function BmiCalculator({ lang }) {
           {copied && <span style={{ color: 'green', marginLeft: 10 }}>{t.copied}</span>}
         </div>
       )}
+
+      {bmi !== null && (
+        <div style={{marginTop:10}}>
+          <b>{lang === 'hr' ? 'Preporuka:' : 'Recommendation:'}</b>
+          <p style={{color:'#1976d2', fontSize:14}}>
+            {bmi < 18.5
+              ? (lang === 'hr' ? 'Povećajte unos kalorija i posavjetujte se s liječnikom.' : 'Increase calorie intake and consult a doctor.')
+              : bmi < 25
+              ? (lang === 'hr' ? 'Vaša težina je u zdravom rasponu.' : 'Your weight is in a healthy range.')
+              : bmi < 30
+              ? (lang === 'hr' ? 'Pazite na prehranu i povećajte tjelesnu aktivnost.' : 'Watch your diet and increase physical activity.')
+              : (lang === 'hr' ? 'Razmislite o smanjenju tjelesne mase i posavjetujte se s liječnikom.' : 'Consider weight loss and consult a doctor.')
+            }
+          </p>
+        </div>
+      )}
+
+      <div style={{margin:'16px 0'}}>
+        <input
+          type="range"
+          min="10"
+          max="40"
+          value={bmi}
+          readOnly
+          style={{
+            width: '100%',
+            accentColor:
+              bmi < 18.5 ? '#2196f3' :
+              bmi < 25 ? '#43a047' :
+              bmi < 30 ? '#ffa000' : '#e53935'
+          }}
+        />
+        <div style={{display:'flex', justifyContent:'space-between', fontSize:12, marginTop:2}}>
+          <span>10</span>
+          <span>18.5</span>
+          <span>25</span>
+          <span>30</span>
+          <span>40</span>
+        </div>
+      </div>
 
       <hr />
 

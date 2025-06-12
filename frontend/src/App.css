@@ -224,3 +224,65 @@ input, button {
   transform: translateY(-2px) scale(1.03);
   outline: none;
 }
+
+/* Stil za padajuće izbornike */
+.App select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  font-size: 16px;
+  margin: 6px 0 12px 0;
+  color: #222;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  outline: none;
+}
+.App select:focus {
+  border: 1.5px solid #1976d2;
+  box-shadow: 0 0 0 2px #90caf9;
+}
+
+/* Dark mode za select */
+.App.dark select {
+  background: #23272f;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+/* Stil za label oko selecta i inputa */
+.App label {
+  display: block;
+  margin: 12px 0 6px 0;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Gumbi u kalkulatorima */
+.calc-btn, .App button:not(.navbar-btn):not(.tab-btn) {
+  background: linear-gradient(90deg, #1976d2 60%, #2196f3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+  margin-right: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.calc-btn:hover, .App button:not(.navbar-btn):not(.tab-btn):hover,
+.calc-btn:focus, .App button:not(.navbar-btn):not(.tab-btn):focus {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
+  outline: none;
+}
+
+/* Dark mode za gumbe */
+.App.dark .calc-btn, .App.dark button:not(.navbar-btn):not(.tab-btn) {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+  color: #fff;
+}

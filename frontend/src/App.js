@@ -4,6 +4,7 @@ import PercentageCalculator from './components/PercentageCalculator';
 import BmiCalculator from './components/BmiCalculator';
 import LoanCalculator from './components/LoanCalculator';
 import FuelCalculator from './components/FuelCalculator';
+import CalorieCalculator from './components/CalorieCalculator';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
@@ -83,6 +84,12 @@ function App() {
           >
             {lang === 'hr' ? 'Gorivo' : 'Fuel'}
           </button>
+          <button
+            className={`tab-btn${activeTab === 'calorie' ? ' active' : ''}${darkMode ? ' dark' : ''}`}
+            onClick={() => setActiveTab('calorie')}
+>
+            {lang === 'hr' ? 'Kalorije' : 'Calories'}
+          </button>
         </div>
         <SwitchTransition>
           <CSSTransition
@@ -96,6 +103,7 @@ function App() {
               {activeTab === 'bmi' && <BmiCalculator lang={lang} />}
               {activeTab === 'loan' && <LoanCalculator lang={lang} />}
               {activeTab === 'fuel' && <FuelCalculator lang={lang} />}
+              {activeTab === 'calorie' && <CalorieCalculator lang={lang} />}
             </div>
           </CSSTransition>
         </SwitchTransition>

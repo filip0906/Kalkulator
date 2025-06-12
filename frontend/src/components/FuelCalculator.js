@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 function FuelCalculator({ lang }) {
   const [distance, setDistance] = useState('');
   const [fuelUsed, setFuelUsed] = useState('');
+  const [price, setPrice] = useState('');
   const [consumption, setConsumption] = useState(null);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [mode, setMode] = useState('classic'); // 'classic' ili 'plan'
+  const [fuelNeeded, setFuelNeeded] = useState(null);
 
   const t = {
     hr: {
@@ -13,6 +16,7 @@ function FuelCalculator({ lang }) {
       desc: 'Izračunajte prosječnu potrošnju goriva na 100 km na temelju prijeđene udaljenosti i potrošenog goriva.',
       distance: 'Prijeđena udaljenost (km)',
       fuel: 'Potrošeno gorivo',
+      price: 'Cijena goriva po litri',
       calc: 'Izračunaj',
       error1: 'Molimo unesite obje vrijednosti.',
       error2: 'Vrijednosti moraju biti pozitivni brojevi (gorivo može biti 0).',
@@ -35,6 +39,7 @@ function FuelCalculator({ lang }) {
       desc: 'Calculate average fuel consumption per 100 km based on distance and fuel used.',
       distance: 'Distance travelled (km)',
       fuel: 'Fuel used',
+      price: 'Fuel price per liter',
       calc: 'Calculate',
       error1: 'Please enter both values.',
       error2: 'Values must be positive numbers (fuel can be 0).',
@@ -73,6 +78,19 @@ function FuelCalculator({ lang }) {
     setConsumption(((fuel / distance) * 100).toFixed(2));
   };
 
+  const calculatePlan = () => {
+    setError('');
+    setFuelNeeded(null);
+    setCopied(false);
+
+    if (distance === '' || consumption === '' || isNaN(distance) || isNaN(consumption) || Number(distance) <= 0 || Number(consumption) <= 0) {
+      setError(lang === 'hr' ? 'Unesite ispravne vrijednosti.' : 'Please enter valid values.');
+      return;
+    }
+    const needed = (Number(distance) * Number(consumption) / 100).toFixed(2);
+    setFuelNeeded(needed);
+  };
+
   const handleCopy = () => {
     if (consumption !== null) {
       navigator.clipboard.writeText(`${t.result}: ${consumption} l/100km`);
@@ -84,36 +102,142 @@ function FuelCalculator({ lang }) {
   return (
     <div>
       <h2>{t.title}</h2>
+      
       <p>{t.desc}</p>
-      <label>
-        {t.distance}
-        <input
-          type="number"
-          placeholder={t.distance}
-          value={distance}
-          onChange={e => setDistance(e.target.value)}
-          aria-label={t.distance}
-        />
-      </label>
-      <label>
-        {t.fuel}
-        <input
-          type="number"
-          placeholder={t.fuel}
-          value={fuelUsed}
-          onChange={e => setFuelUsed(e.target.value)}
-          aria-label={t.fuel}
-        />
-      </label>
-      <button className="calc-btn" onClick={calculate} aria-label={t.calc}>{t.calc}</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {consumption !== null && (
-        <div>
-          <p>{t.result}: {consumption} l/100km</p>
-          <button onClick={handleCopy} aria-label={t.copy}>{t.copy}</button>
-          <button onClick={() => window.print()} style={{marginLeft: 8}} aria-label={t.print}>{t.print}</button>
-          {copied && <span style={{ color: 'green', marginLeft: 10 }}>{t.copied}</span>}
-        </div>
+      {mode === 'classic' ? (
+        <>
+          <label>
+            {t.distance}
+            <input
+              type="number"
+              placeholder={t.distance}
+              value={distance}
+              onChange={e => setDistance(e.target.value)}
+              aria-label={t.distance}
+            />
+          </label>
+          <label>
+            {t.fuel}
+            <input
+              type="number"
+              placeholder={t.fuel}
+              value={fuelUsed}
+              onChange={e => setFuelUsed(e.target.value)}
+              aria-label={t.fuel}
+            />
+          </label>
+          <label>
+            {lang === 'hr' ? 'Cijena goriva (kn/l ili €/l)' : 'Fuel price (per liter)'}
+            <input
+              type="number"
+              placeholder={lang === 'hr' ? 'Cijena goriva' : 'Fuel price'}
+              value={price}
+              onChange={e => setPrice(e.target.value)}
+              aria-label={lang === 'hr' ? 'Cijena goriva' : 'Fuel price'}
+            />
+          </label>
+        </>
+      ) : (
+        <>
+          <label>
+            {lang === 'hr' ? 'Prosječna potrošnja (l/100km)' : 'Average consumption (l/100km)'}
+            <input
+              type="number"
+              placeholder={lang === 'hr' ? 'Prosječna potrošnja' : 'Average consumption'}
+              value={consumption || ''}
+              onChange={e => setConsumption(e.target.value)}
+              aria-label={lang === 'hr' ? 'Prosječna potrošnja' : 'Average consumption'}
+            />
+          </label>
+          <label>
+            {t.distance}
+            <input
+              type="number"
+              placeholder={t.distance}
+              value={distance}
+              onChange={e => setDistance(e.target.value)}
+              aria-label={t.distance}
+            />
+          </label>
+          <label>
+            {lang === 'hr' ? 'Cijena goriva (kn/l ili €/l)' : 'Fuel price (per liter)'}
+            <input
+              type="number"
+              placeholder={lang === 'hr' ? 'Cijena goriva' : 'Fuel price'}
+              value={price}
+              onChange={e => setPrice(e.target.value)}
+              aria-label={lang === 'hr' ? 'Cijena goriva' : 'Fuel price'}
+            />
+          </label>
+        </>
+      )}
+      <div style={{marginBottom: 16}}>
+        <button
+          className={`calc-btn${mode === 'classic' ? ' active' : ''}`}
+          style={{marginRight: 8}}
+          onClick={() => setMode('classic')}
+          type="button"
+        >
+          {lang === 'hr' ? 'Izračunaj potrošnju' : 'Calculate consumption'}
+        </button>
+        <button
+          className={`calc-btn${mode === 'plan' ? ' active' : ''}`}
+          onClick={() => setMode('plan')}
+          type="button"
+        >
+          {lang === 'hr' ? 'Planiraj putovanje' : 'Trip planner'}
+        </button>
+      </div>
+      {mode === 'classic' ? (
+        <>
+          <button className="calc-btn" onClick={calculate} aria-label={t.calc}>{t.calc}</button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {consumption !== null && (
+            <div>
+              <p>{t.result}: {consumption} l/100km</p>
+              {price && distance && consumption && (
+                <p>
+                  {lang === 'hr'
+                    ? `Procijenjeni trošak za ovo putovanje: ${((Number(distance) / 100) * Number(consumption) * Number(price)).toFixed(2)}`
+                    : `Estimated trip cost: ${((Number(distance) / 100) * Number(consumption) * Number(price)).toFixed(2)}`}
+                </p>
+              )}
+              {price && fuelUsed && (
+                <p>
+                  {lang === 'hr'
+                    ? `Ukupni trošak goriva: ${(Number(fuelUsed) * Number(price)).toFixed(2)}`
+                    : `Total fuel cost: ${(Number(fuelUsed) * Number(price)).toFixed(2)}`}
+                </p>
+              )}
+              <button onClick={handleCopy} aria-label={t.copy}>{t.copy}</button>
+              <button onClick={() => window.print()} style={{marginLeft: 8}} aria-label={t.print}>{t.print}</button>
+              {copied && <span style={{ color: 'green', marginLeft: 10 }}>{t.copied}</span>}
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          <button className="calc-btn" onClick={calculatePlan} aria-label={lang === 'hr' ? 'Izračunaj' : 'Calculate'}>
+            {lang === 'hr' ? 'Izračunaj' : 'Calculate'}
+          </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {fuelNeeded !== null && (
+            <div>
+              <p>
+                {lang === 'hr'
+                  ? `Za put od ${distance} km treba vam ${fuelNeeded} litara goriva.`
+                  : `For a trip of ${distance} km you need ${fuelNeeded} liters of fuel.`}
+              </p>
+              {price && (
+                <p>
+                  {lang === 'hr'
+                    ? `Trošak goriva: ${(Number(fuelNeeded) * Number(price)).toFixed(2)}`
+                    : `Fuel cost: ${(Number(fuelNeeded) * Number(price)).toFixed(2)}`}
+                </p>
+              )}
+            </div>
+          )}
+        </>
       )}
 
       <hr />

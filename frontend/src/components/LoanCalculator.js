@@ -130,10 +130,54 @@ function LoanCalculator({ lang }) {
       {monthly !== null && (
         <div>
           <p>{t.result}: {monthly}</p>
+          <p>
+            {lang === 'hr' ? 'Ukupno plaćeno:' : 'Total paid:'} {(monthly * years * 12).toFixed(2)}
+          </p>
           <button onClick={handleCopy} aria-label={t.copy}>{t.copy}</button>
           <button onClick={() => window.print()} style={{marginLeft: 8}} aria-label={t.print}>{t.print}</button>
           {copied && <span style={{ color: 'green', marginLeft: 10 }}>{t.copied}</span>}
         </div>
+      )}
+
+      {monthly !== null && (
+        <details style={{marginTop:10}}>
+          <summary>{lang === 'hr' ? 'Prikaži amortizacijsku tablicu' : 'Show amortization table'}</summary>
+          <table style={{width:'100%', fontSize:13, marginTop:8, borderCollapse:'collapse'}}>
+            <thead>
+              <tr>
+                <th>{lang === 'hr' ? 'Mjesec' : 'Month'}</th>
+                <th>{lang === 'hr' ? 'Anuitet' : 'Payment'}</th>
+                <th>{lang === 'hr' ? 'Glavnica' : 'Principal'}</th>
+                <th>{lang === 'hr' ? 'Kamata' : 'Interest'}</th>
+                <th>{lang === 'hr' ? 'Preostalo' : 'Remaining'}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(() => {
+                let rows = [];
+                let balance = Number(amount);
+                let mRate = Number(rate) / 100 / 12;
+                let pay = Number(monthly);
+                for (let i = 1; i <= years * 12; i++) {
+                  let interest = mRate === 0 ? 0 : balance * mRate;
+                  let principal = pay - interest;
+                  balance -= principal;
+                  rows.push(
+                    <tr key={i}>
+                      <td>{i}</td>
+                      <td>{pay.toFixed(2)}</td>
+                      <td>{principal.toFixed(2)}</td>
+                      <td>{interest.toFixed(2)}</td>
+                      <td>{balance > 0 ? balance.toFixed(2) : '0.00'}</td>
+                    </tr>
+                  );
+                  if (balance <= 0) break;
+                }
+                return rows;
+              })()}
+            </tbody>
+          </table>
+        </details>
       )}
 
       <hr />

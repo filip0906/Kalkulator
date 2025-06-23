@@ -5,6 +5,7 @@ import BmiCalculator from './components/BmiCalculator';
 import LoanCalculator from './components/LoanCalculator';
 import FuelCalculator from './components/FuelCalculator';
 import CalorieCalculator from './components/CalorieCalculator';
+import EscapeRoomGame from './components/EscapeRoomGame';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
@@ -87,8 +88,14 @@ function App() {
           <button
             className={`tab-btn${activeTab === 'calorie' ? ' active' : ''}${darkMode ? ' dark' : ''}`}
             onClick={() => setActiveTab('calorie')}
->
+          >
             {lang === 'hr' ? 'Kalorije' : 'Calories'}
+          </button>
+          <button
+            className={`tab-btn${activeTab === 'escape' ? ' active' : ''}${darkMode ? ' dark' : ''}`}
+            onClick={() => setActiveTab('escape')}
+          >
+            🕹️ {lang === 'hr' ? 'Igra' : 'Game'}
           </button>
         </div>
         <SwitchTransition>
@@ -104,6 +111,7 @@ function App() {
               {activeTab === 'loan' && <LoanCalculator lang={lang} />}
               {activeTab === 'fuel' && <FuelCalculator lang={lang} />}
               {activeTab === 'calorie' && <CalorieCalculator lang={lang} />}
+              {activeTab === 'escape' && <EscapeRoomGame />}
             </div>
           </CSSTransition>
         </SwitchTransition>

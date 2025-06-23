@@ -84,32 +84,31 @@
 /* Tabovi kao kartice */
 .tabs {
   display: flex;
-  justify-content: center;
-  margin: 0 0 24px 0;
   gap: 8px;
+  margin: 18px 0 24px 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .tab-btn {
-  background: #e0e0e0;
+  background: #23272f;
+  color: #eee;
   border: none;
-  padding: 10px 24px;
   border-radius: 8px 8px 0 0;
+  padding: 10px 28px;
+  font-size: 1.08rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  color: #222;
-  position: relative;
-  top: 6px;
+  margin-right: 2px;
+  margin-bottom: -2px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.05);
 }
-
-.tab-btn.active {
-  background: #fff;
-  color: #1976d2;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.10);
-  z-index: 2;
-  top: 0;
+.tab-btn.active, .tab-btn:hover, .tab-btn:focus {
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
+  outline: none;
 }
 
 .tab-btn.dark {
@@ -285,4 +284,12 @@ input, button {
 .App.dark .calc-btn, .App.dark button:not(.navbar-btn):not(.tab-btn) {
   background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
   color: #fff;
+}
+
+.escape-scene {
+  animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: none;}
 }
